@@ -1,0 +1,13 @@
+db.sqlite3
+news/filters.py
+news/utils.py
+files.py
+news_scraper/output.json
+news_scraper/test.py
+
+venv/
+news_scraper/news_scraper/__pycache__/  
+news_scraper/spiders/__pycache__/
+roshan_news/__pycache__/
+news/__pycache__/
+news/migrations/
