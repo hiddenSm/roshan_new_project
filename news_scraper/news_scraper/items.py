@@ -18,4 +18,5 @@ class NewsItem(scrapy.Item):
     content = scrapy.Field()
     tags = scrapy.Field()
     source = scrapy.Field()
+    created_at = scrapy.Field()
     

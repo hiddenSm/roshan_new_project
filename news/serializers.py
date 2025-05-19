@@ -7,7 +7,7 @@ class NewsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = News
-        fields = ['id', 'title', 'content', 'tags', 'source', 'created_at']
+        fields = ['id', 'title', 'content', 'tags', 'source', 'created_at']#, 'updateed_at']
     
     def create(self, validated_data):
         tags = validated_data.pop('tags', [])

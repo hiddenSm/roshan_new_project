@@ -1,9 +1,13 @@
+__pycache__
 db.sqlite3
-news/filters.py
-news/utils.py
 files.py
-news_scraper/output.json
+text.txt
+reactor_setup.py
+news/utils.py
+news/ignores.py
+news/filters.py
 news_scraper/test.py
+news_scraper/output.json
 
 venv/
 news_scraper/news_scraper/__pycache__/  

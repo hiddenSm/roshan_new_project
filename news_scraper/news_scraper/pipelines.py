@@ -26,9 +26,10 @@ class DjangoPipeline:
                 defaults={
                     'content': item['content'],
                     'source': item['source'],
-                    'created_at': timezone.now()
+                    'created_at': item['created_at']
                 }
             )
+            
             for tag in item['tags']:
                 tag_name = tag.strip()
                 if tag_name:

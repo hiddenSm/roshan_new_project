@@ -18,8 +18,11 @@ django.setup()
 
 BOT_NAME = "news_scraper"
 
-SPIDER_MODULES = ["news_scraper.spiders"]
-NEWSPIDER_MODULE = "news_scraper.spiders"
+# SPIDER_MODULES = ["news_scraper.spiders"]
+# NEWSPIDER_MODULE = "news_scraper.spiders"
+
+SPIDER_MODULES = ['news_scraper.news_scraper.spiders']
+NEWSPIDER_MODULE = 'news_scraper.news_scraper.spiders'
 
 ADDONS = {}
 
@@ -78,7 +81,8 @@ ROBOTSTXT_OBEY = True
 #}
 ITEM_PIPELINES = {
     # "news_scraper.pipelines.NewsScraperPipeline": 300,
-    "news_scraper.pipelines.DjangoPipeline": 300,
+    # "news_scraper.pipelines.DjangoPipeline": 300,
+    "news_scraper.news_scraper.pipelines.DjangoPipeline": 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -115,3 +119,5 @@ FEED_EXPORT_ENCODING = "utf-8"
 
 LOG_LEVEL = 'DEBUG'
 LOG_ENABLED = True
+
+# TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'

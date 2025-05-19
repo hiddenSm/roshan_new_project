@@ -1,5 +1,5 @@
-import crochet
-from crochet import setup
+import crochet, os
+# from crochet import setup
 from django.db.models import Q
 from django.utils import timezone
 from rest_framework import status
@@ -13,12 +13,16 @@ from scrapy.signals import item_scraped
 
 from .models import News
 from .serializers import NewsSerializer
+from news_scraper.news_scraper import settings as scrapy_settinga
 from news_scraper.news_scraper.spiders.zoomit import ZoomitSpider
 
 
 # Create your views here.
 
-setup()
+# os.environ['SCRAPY_SETTINGS_MODULE'] = 'news_scraper.news_scraper.settings'
+# scrapy_settinga.set('ITEM_PIPELINES', {'news_scraper.pipelines.DjangoPipeline': 300})
+
+# setup()
 crochet.setup()
 
 class CrawlView(APIView):
