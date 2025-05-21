@@ -1,11 +1,13 @@
-import os
+import os, sys
 
-from twisted.internet import asyncioreactor
-try:
-    asyncioreactor.install()
-except Exception as e:
-    # print(e)
-    pass
+
+if 'flower' not in sys.argv:
+    from twisted.internet import asyncioreactor
+    try:
+        asyncioreactor.install()
+    except Exception as e:
+        # print(e)
+        pass
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'roshan_news.settings')
 
@@ -19,6 +21,15 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
 
-@app.task(bind=True, ignore_result=True)
-def debug_task(self):
-    print(f'Request: {self.request!r}')
+from celery.schedules import crontab
+
+app.conf.beat_schedule = {
+    'scrap_news': {
+        'task': 'news.tasks.crawl_zoomit',
+        'schedule': crontab(minute='*/1'),
+    },
+}
+
+# @app.task(bind=True, ignore_result=True)
+# def debug_task(self):
+#     print(f'Request: {self.request!r}')

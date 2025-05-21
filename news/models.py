@@ -9,7 +9,7 @@ class News(models.Model):
     content = models.TextField()
     tags = TaggableManager()
     source = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=False)
 
     def __str__(self):
         return self.title

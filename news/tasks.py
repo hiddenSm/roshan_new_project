@@ -1,18 +1,18 @@
-import os
+import os, sys
 
-from twisted.internet import asyncioreactor
-try:
-    asyncioreactor.install()
-except Exception as e:
-    # print(e)
-    pass
+if 'flower' not in sys.argv:
+    from twisted.internet import asyncioreactor
+    try:
+        asyncioreactor.install()
+    except Exception as e:
+        # print(e)
+        pass
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'roshan_news.settings')
 
 import logging, crochet
 from crochet import setup
 from celery import shared_task
-from django.utils import timezone
 from scrapy.signals import item_scraped 
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
@@ -30,13 +30,15 @@ def crawl_zoomit():
     items = []
 
     def collect_item(item, response, spider):
+        logger.info(f"date11 {item['created_at']}")
         items.append({
             'title': item['title'],
             'content': item['content'][:100] + '...' if len(item['content']) > 100 else item['content'],
             'tags': item['tags'],
             'source': item['source'],
-            'created_at': timezone.now()
+            'created_at': item['created_at']
         })
+        return items
 
     try:
         crochet.setup()
@@ -58,13 +60,14 @@ def crawl_zoomit():
                 if News.objects.filter(title=item['title']).exists():
                     logger.info(f"خبر تکراری: {item['title']}")
                     continue
-                
+
+                logger.info(f"date: {item['created_at']}")
                 news, created = News.objects.get_or_create(
                     title=item['title'],
                     defaults={
                         'content': item['content'],
                         'source': item['source'],
-                        'created_at': timezone.now()
+                        'created_at': item['created_at']
                     }
                 )
                 for tag in item['tags']:
@@ -74,8 +77,7 @@ def crawl_zoomit():
                     saved_count += 1
                     news.save()
                     logger.info(f"خبر جدید ذخیره شد: {news.title}")
-                # else:
-                #     logger.info(f"خبر تکراری: {news.title}")
+
             except Exception as e:
                 logger.error(f"خطا در ذخیره‌سازی خبر: {str(e)}")
 
