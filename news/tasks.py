@@ -30,7 +30,7 @@ def crawl_zoomit():
     items = []
 
     def collect_item(item, response, spider):
-        logger.info(f"date11 {item['created_at']}")
+        # logger.info(f"date11 {item['created_at']}")
         items.append({
             'title': item['title'],
             'content': item['content'][:100] + '...' if len(item['content']) > 100 else item['content'],
