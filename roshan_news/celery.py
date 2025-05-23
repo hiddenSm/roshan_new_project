@@ -26,6 +26,6 @@ from celery.schedules import crontab
 app.conf.beat_schedule = {
     'scrap_news': {
         'task': 'news.tasks.crawl_zoomit',
-        'schedule': crontab(minute='*/1'),
+        'schedule': crontab(minute='*/5'),
     },
 }
