@@ -1,7 +1,8 @@
 services:
   web:
     build: .
-    command: gunicorn roshan_news.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    # command: gunicorn roshan_news.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && gunicorn roshan_news.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
     environment:
       - CELERY_BROKER_URL=${{Redis.REDIS_URL}}
       - CELERY_RESULT_BACKEND=${{Redis.REDIS_URL}}
