@@ -84,22 +84,13 @@ WSGI_APPLICATION = 'roshan_news.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': '${{PostgreSQL.PGDATABASE}}',
-        'USER': '${{PostgreSQL.PGUSER}}',
-        'PASSWORD': '${{PostgreSQL.PGPASSWORD}}',
-        'HOST': '${{PostgreSQL.PGHOST}}',
-        'PORT': '${{PostgreSQL.PGPORT}}',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
